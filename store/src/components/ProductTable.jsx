@@ -33,7 +33,7 @@ const ProductTable = ({ headers, products }) => {
         {electronics.map(({ id, name, price, type }) => (<ProductItem key={`${type}-${id}`} name={name} price={price} />))}
 
         <ProductCategoryHeader text={headers[2]} />
-        {foods.map((food) => (<ProductItem name={food.name} price={food.name} />))}
+        {foods.map(({ id, name, price, type }) => (<ProductItem key={`${type}-${id}`} name={name} price={price} />))}
     </Table.TBody>
     </Table.TableContainer>
   </div>
