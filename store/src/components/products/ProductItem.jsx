@@ -7,7 +7,7 @@ const ProductItem = (props) => {
         <Table.Column>{props.name}</Table.Column>
         <Table.Column>
             ${props.price.toFixed(2)}
-            </Table.Column>
+        </Table.Column>
     </Table.Row>
   );
 }

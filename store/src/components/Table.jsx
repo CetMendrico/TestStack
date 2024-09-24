@@ -13,7 +13,7 @@ const Column = ({ children, props }) => {
 };
 
 const ColumnHeader = ({ children, props }) => {
-    return <td {...props}>{children}</td>;
+    return <th {...props}>{children}</th>;
 };
 
 const THead = ({ children, props }) => {

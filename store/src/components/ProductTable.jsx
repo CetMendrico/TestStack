@@ -1,8 +1,14 @@
 import React from 'react';
 import Table from './Table';
 import ProductItem from './products/ProductItem';
+import ProductCategoryHeader from './products/ProductCategoryHeader';
 
-const ProductTable = () => {
+const ProductTable = ({ headers, products }) => {
+
+   const sportingGoods = products.filter((product) => product.type == 1) ;
+   const electronics = products.filter((product) => product.type == 2) ;
+   const foods = products.filter((product) => product.type == 3) ;
+
   return (
   <div>
     <Table.TableContainer>
@@ -14,11 +20,20 @@ const ProductTable = () => {
     </Table.THead>
 
     <Table.TBody>
-        <ProductItem name="Penne" price={99.9} />
-        <ProductItem name="Mac" price={199.9} />
-        <ProductItem name="And" price={919.9} />
-        <ProductItem name="Cheese" price={991.9} />
-        <ProductItem name="I Luv Mac n cheese" price={999.9} />
+        <ProductCategoryHeader text={headers[0]} />
+
+        {sportingGoods.map((sportingGood) => 
+        <ProductItem 
+        key={`${sportingGood.type}-${sportingGood.id}`}
+        name={sportingGood.name} 
+        price={sportingGood.price} />
+        )}
+
+        <ProductCategoryHeader text={headers[1]} />
+        {electronics.map(({ id, name, price, type }) => (<ProductItem key={`${type}-${id}`} name={name} price={price} />))}
+
+        <ProductCategoryHeader text={headers[2]} />
+        {foods.map((food) => (<ProductItem name={food.name} price={food.name} />))}
     </Table.TBody>
     </Table.TableContainer>
   </div>
