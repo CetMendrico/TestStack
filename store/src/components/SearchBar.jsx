@@ -1,9 +1,12 @@
 import React from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({ query, setQuery }) => {
   return (
   <div>
-    <input type="text" />
+    <input 
+    type="text" 
+    value={query} 
+    onChange={(e) => setQuery(e.target.value)}/>
   <div>
     <input type="checkbox" />
     Only show products in stock
