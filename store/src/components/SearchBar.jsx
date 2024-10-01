@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = ({ query, setQuery }) => {
+const SearchBar = ({ query, setQuery, stockChecked, setStockChecked }) => {
   return (
   <div>
     <input 
@@ -8,7 +8,7 @@ const SearchBar = ({ query, setQuery }) => {
     value={query} 
     onChange={(e) => setQuery(e.target.value)}/>
   <div>
-    <input type="checkbox" />
+    <input type="checkbox" checked={stockChecked} onChange={(e) => console.log(e.target.checked)}/>
     Only show products in stock
     </div>
     </div>
