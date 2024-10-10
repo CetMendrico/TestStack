@@ -1,7 +1,7 @@
 const FilterProductTable = (props) => {
-    const { children, className } = props;
+    const { children } = props;
 
-    return <div className={className}>{ children }</div>;
+    return <div className="flex">{ children }</div>;
 };
 
 export default FilterProductTable;

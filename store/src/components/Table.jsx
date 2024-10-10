@@ -5,7 +5,7 @@ const TableContainer = ({ children, props }) => {
 };
 
 const Row = ({ children, props }) => {
-    return <tr {...props}>{children}</tr>;
+    return <tr className='flex items-center' {...props}>{children}</tr>;
 };
 
 const Column = ({ children, props }) => {
