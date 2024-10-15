@@ -1,54 +1,61 @@
-import { useEffect, useState } from 'react';
-import './App.css'
-import FilterProductTable from './components/FilterProductTable'
-import ProductTable from './components/ProductTable';
-import SearchBar from './components/SearchBar'
-
-const products = [
-  { id: 1, name: "Tennis", price: 99.9, type: 1, stock: 100 },
-  { id: 2, name: "Badminton", price: 59.9, type: 1, stock: 1 },
-  { id: 3, name: "Basketball", price: -100, type: 1, stock: 10 },
-
-  { id: 4, name: "Iphone 5", price: 99.9, type: 2, stock: 12 },
-  { id: 5, name: "Nexus 7", price: 399.9, type: 2, stock: 11 },
-  { id: 6, name: "IPod Touch", price: 199.9, type: 2, stock: 8 },
-
-  { id: 7, name: "Mac", price: 199.9, type: 3, stock: 1 },
-  { id: 8, name: "And", price: 919.9, type: 3, stock: 9 },
-  { id: 9, name: "Cheese", price: 999.9, type: 3, stock: 7},
-];
-
-const headers = ["Sporting Goods", "Electronics", "Foods"];
+import { useEffect, useState } from "react";
+import "./App.css";
+import FilterProductTable from "./components/FilterProductTable";
+import SearchBar from "./components/SearchBar";
+import ProductCard from "./components/products/ProductCard";
 
 function App() {
-  const [query, setQuery] = useState("Default Value");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const [query, setQuery] = useState("");
   const [stockChecked, setStockChecked] = useState(false);
 
-  const filteredProducts = products.filter((product) => 
-    product.name.toLowerCase().includes(query.toLowerCase(0))
-    &&
-    (!stockChecked || product.stock > 0)
-  );
+  useEffect(() => {
+    // call the api
+    const getProducts = async () => {
+      try {
+        setLoading(true);
 
-useEffect(() => {
-  const getProducts = async () => {
-    const response = await fetch('https://fakestoreapi.com/products');
-    const data = await response.json();
-    console.log(data);
-  };
+        const response = await fetch("https://fakestoreapi.com/products");
+        const data = await response.json();
 
-  getProducts();
-  return () => {
-    
-  }
-}, [])
+        setProducts(data);
+
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProducts();
+
+    // Run when this component is destroyed or unmount
+    return () => {};
+  }, []);
 
   return (
-  <FilterProductTable>
-    <SearchBar query={query} setQuery={setQuery} stockChecked={stockChecked} setStockChecked={setStockChecked}/>
-    
-    <ProductTable headers={headers} products={filteredProducts} />
-  </FilterProductTable>
+    <FilterProductTable>
+      <SearchBar
+        query={query}
+        setQuery={setQuery}
+        stockChecked={stockChecked}
+        setStockChecked={setStockChecked}
+      />
+      {!loading ? (
+        <div className="flex flex-wrap gap-4">
+          {products.map((product) => (
+            <ProductCard 
+              key={`product-${product.id}`}
+              imageSrc={product.image}
+              name={product.title}
+            ></ProductCard>
+          ))}
+        </div>
+      ) : (
+        <span>Loading...</span>
+      )}
+    </FilterProductTable>
   );
 }
 
