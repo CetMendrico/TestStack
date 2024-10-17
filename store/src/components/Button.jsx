@@ -1,12 +1,15 @@
-import React from 'react';
-import clsx from 'clsx';
+import clsx from "clsx";
+import React from "react";
 
-const Button = ({ name, onClick, className }) => {
+const Button = ({ name, onClick, className = "" }) => {
   return (
-    <div>
-    <button onClick={onClick} className={clsx(className, "py-2 px-3 border rounded-md")}>{name}</button>
-    </div>
-  )
-}
+    <button
+      onClick={onClick}
+      className={clsx(className, "py-2 px-4 border rounded-md")}
+    >
+      {name}
+    </button>
+  );
+};
 
 export default Button;
