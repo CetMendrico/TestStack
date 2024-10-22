@@ -10,11 +10,13 @@ function App() {
 
   const [query, setQuery] = useState("");
   const [stockChecked, setStockChecked] = useState(false);
+
   const [sort, setSort] = useState("asc");
 
   useEffect(() => {
     const controller = new AbortController();
-      const signal = controller.signal;
+    const signal = controller.signal;
+
     // call the api
     const getProducts = async () => {
       try {
@@ -39,7 +41,7 @@ function App() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [sort]);
 
   return (
     <FilterProductTable>
